@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using GAF;
 using Newtonsoft.Json;
 
 namespace CoffeeMorningAssigner.Models
@@ -16,7 +17,27 @@ namespace CoffeeMorningAssigner.Models
             Groups = new List<Group>();
         }
 
-        
+        public WeekAssignment(Chromosome chromosome, string weekName) : this(weekName)
+        {
+            var users = chromosome.Genes
+                .Select(gene => (User)gene.ObjectValue)
+                .ToList();
+
+            var queue = new Queue<User>(users);
+
+            int groupIndex = 1;
+            while (queue.Count > 0)
+            {
+                var group = new Group(groupIndex++);
+                while (!group.IsFull() && queue.Count > 0)
+                {
+                    group.Add(queue.Dequeue());
+                }
+
+                Add(group);
+            }
+        }
+
         public int WeekId { get; set; }
         public string Name { get; set; }
         public List<Group> Groups { get; }

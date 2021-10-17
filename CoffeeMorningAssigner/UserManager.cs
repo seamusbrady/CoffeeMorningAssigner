@@ -23,11 +23,5 @@ namespace CoffeeMorningAssigner
         {
             return _users.Where(u => !u.Exclude.GetValueOrDefault(false)).ToList();
         }
-
-        public List<User> GetExcludedUsers()
-        {
-            return _users.Where(u => u.Exclude.GetValueOrDefault(false)).ToList();
-        }
-
     }
 }
