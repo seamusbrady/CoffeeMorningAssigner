@@ -10,20 +10,19 @@ namespace CoffeeMorningAssigner
     {
         private readonly SparseMatrix<int> _historicalScore;
 
-        public ScoreCalculator(AssignmentHistory history, AlgorithmParameters parameters)
+        public ScoreCalculator(AssignmentHistory history, AlgorithmParameters parameters, int totalUserCount)
         {
-            _historicalScore = CreateScoreMatrix(history, parameters);
+            _historicalScore = CreateScoreMatrix(history, parameters, totalUserCount);
         }
 
-
-        private SparseMatrix<int> CreateScoreMatrix(AssignmentHistory history, AlgorithmParameters parameters)
+        private SparseMatrix<int> CreateScoreMatrix(AssignmentHistory history, AlgorithmParameters parameters,
+            int totalUserCount)
         {
             int numWeeks = parameters.NumWeeksLookBack;
 
             Console.WriteLine($"Using {numWeeks} weeks of history for calculations out of a total of {history.Weeks.Count} weeks history");
 
-            var numUsers = history.MaxUserCount;
-            var score = new SparseMatrix<int>(numUsers, numUsers);
+            var score = new SparseMatrix<int>(totalUserCount, totalUserCount);
 
             int penalty = parameters.MaxPenalty;
 
@@ -87,7 +86,7 @@ namespace CoffeeMorningAssigner
             return string.Join(Environment.NewLine, report);
         }
 
-        public List<string> ReportPreviousMeetings(WeekAssignment current, WeekAssignment recent)
+        private List<string> ReportPreviousMeetings(WeekAssignment current, WeekAssignment recent)
         {
             if (!recent.Groups.Any()) return new List<string>();
 

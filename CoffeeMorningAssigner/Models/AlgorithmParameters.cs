@@ -8,7 +8,7 @@
         public int WeeklyPenalty { get; set; }
         public double FitnessDivisor { get; set; }
 
-        public static int NumberOfGenerations => 1000;
+        public static int NumberOfGenerations => 10000;
         public static int MaxUsersPerGroup => 4;
     }
 

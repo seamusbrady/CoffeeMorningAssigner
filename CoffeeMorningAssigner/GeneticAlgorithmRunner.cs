@@ -34,7 +34,8 @@ namespace CoffeeMorningAssigner
                 population.Solutions.Add(chromosome);
             }
 
-            var elite = new Elite(5);
+            // Keep 1/3 of best population
+            var elite = new Elite(includedUsers.Count / 3);
 
             // Create a DoublePointOrdered crossover operator
             //  which keeps unique users/genes in child chromosomes
@@ -75,15 +76,6 @@ namespace CoffeeMorningAssigner
 
         private static void ga_OnRunComplete(object sender, GaEventArgs e)
         {
-            var fittest = e.Population.GetTop(1)[0];
-            Console.WriteLine();
-            Console.WriteLine("Best is: " + CalculateChromosomeScore(fittest));
-
-            //foreach (var group in Converter.ConvertToWeekAssignment(fittest).Groups)
-            //{
-            //    Console.WriteLine(group);
-            //}
-            //Console.WriteLine();
         }
 
         private static void ga_OnGenerationComplete(object sender, GaEventArgs e)
@@ -92,12 +84,12 @@ namespace CoffeeMorningAssigner
 
             Console.Write($"\rGeneration: {e.Generation}, " +
                           $"Fitness: {fittest.Fitness:P}" +
-                          $", Score: {CalculateChromosomeScore(fittest)}   ");
+                          $", Score: {CalculateChromosomeScore(fittest):D4} (lower is better)");
         }
 
         private static int CalculateChromosomeScore(Chromosome chromosome)
         {
-            var weekAssignment = Converter.ConvertToWeekAssignment(chromosome, "ignore");
+            var weekAssignment = new WeekAssignment(chromosome, "ignore");
             return _calculator.CalculateScore(weekAssignment);
         }
 
