@@ -40,7 +40,7 @@ namespace CoffeeMorningAssigner.Models
 
         public override string ToString()
         {
-            return $"Group {Id}: {string.Join(",", Members)}";
+            return $"Group {Id}: {string.Join(", ", Members)}";
             //return  $"Id: {Id}, Members: " + string.Join(",", Members);
         }
     }
