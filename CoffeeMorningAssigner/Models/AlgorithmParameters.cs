@@ -23,7 +23,7 @@
                 NumWeeksLookBack = numUsers / AlgorithmParameters.MaxUsersPerGroup + 2,
             };
 
-            p.MaxPenalty = p.NumWeeksLookBack * 10;
+            p.MaxPenalty = p.NumWeeksLookBack * 10 + 10;
             p.WeeklyPenalty = 10;
             p.FitnessDivisor = numUsers * p.MaxPenalty * 2;
             return p;
