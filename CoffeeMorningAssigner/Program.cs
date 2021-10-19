@@ -12,16 +12,13 @@ namespace CoffeeMorningAssigner
         {
 
             // First time running the application - copy the userhistory18.csv to your MyDocuments folder
-
-            // UserHistoryImporter.Run();
-            // HistoryReadWriteTester.Run();
-
+            CsvRepository<User>.CopyFileToWorkingFolder("Data\\userHistory18.csv");
 
             bool validFileNumber;
             do
             {
                 Console.WriteLine();
-                Console.WriteLine("Enter userHistory file number:");
+                Console.WriteLine("Enter userHistory file number or any other character to quit.");
                 var input = Console.ReadLine();
 
                 validFileNumber = int.TryParse(input, out var fileId);
@@ -32,23 +29,23 @@ namespace CoffeeMorningAssigner
 
             } while (validFileNumber);
         }
-
+   
         private static void RunOnUserHistory(int fileNumber)
         {
             // Load our historical scores
             var userHistoryRepository = new UserHistoryRepository();
             var history = userHistoryRepository.Read($"userHistory{fileNumber}.csv");
 
-            var userManager = new UserManager($"userHistory{fileNumber}.csv");
-            var includedUsers = userManager.GetIncludedUsers();
-            var totalUserCount = userManager.GetAllUsers().Count;
+            var userRepository = new UserRepository($"userHistory{fileNumber}.csv");
+            var includedUsers = userRepository.GetIncludedUsers();
+            var totalUserCount = userRepository.GetAllUsers().Count;
 
-            var weekAssignment= RunAlgorithm(history, includedUsers, totalUserCount);
-            
+            var weekAssignment = RunAlgorithm(history, includedUsers, totalUserCount);
+
             history.Add(weekAssignment);
 
 
-            var allUsers = userManager.GetAllUsers();
+            var allUsers = userRepository.GetAllUsers();
             userHistoryRepository.Write($"userHistory{fileNumber + 1}.csv", allUsers, history);
         }
 

@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using CoffeeMorningAssigner.DAL;
 using CoffeeMorningAssigner.Models;
 
-namespace CoffeeMorningAssigner
+namespace CoffeeMorningAssigner.DAL
 {
-    public class UserManager
+    public class UserRepository
     {
         private readonly List<User> _users;
         
-        public UserManager(string filename)
+        public UserRepository(string filename)
         {
             _users = new CsvRepository<User>().Load(filename);
         }
