@@ -96,7 +96,7 @@ namespace CoffeeMorningAssigner
         private static bool Terminate(Population population, int currentGeneration, long currentEvaluation)
         {
             // Stop if perfect solution found
-            if (Math.Abs(population.GetTop(1)[0].Fitness - 1) < 0.00000001)
+            if (Math.Abs(population.MaximumFitness - 1) < 0.00000001)
                 return true;
 
             // Or we run through enough generations
