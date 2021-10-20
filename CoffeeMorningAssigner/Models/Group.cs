@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
 
 namespace CoffeeMorningAssigner.Models
 {
@@ -10,13 +8,6 @@ namespace CoffeeMorningAssigner.Models
         {
             Id = id;
             Members = new  List<User>();
-        }
-
-        [JsonConstructor]
-        public Group(int id, User[] members)
-        {
-            Id = id;
-            Members = members.ToList();
         }
 
         public int Id { get; set; }
@@ -41,7 +32,6 @@ namespace CoffeeMorningAssigner.Models
         public override string ToString()
         {
             return $"Group {Id}: {string.Join(", ", Members)}";
-            //return  $"Id: {Id}, Members: " + string.Join(",", Members);
         }
     }
 }

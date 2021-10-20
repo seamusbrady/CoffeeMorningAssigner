@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using GAF;
-using Newtonsoft.Json;
 
 namespace CoffeeMorningAssigner.Models
 {
     public class WeekAssignment
     {
-        [JsonConstructor]
         public WeekAssignment(string name)
         {
             // The week id will be set when it's added to the history
