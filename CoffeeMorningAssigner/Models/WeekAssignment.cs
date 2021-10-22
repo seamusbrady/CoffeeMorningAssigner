@@ -53,7 +53,8 @@ namespace CoffeeMorningAssigner.Models
 
         public override string ToString()
         {
-            return Groups.Aggregate(Environment.NewLine, (current, @group) => current + (@group + Environment.NewLine));
+            var heading = Environment.NewLine + "This week's groupings" + Environment.NewLine;
+            return Groups.Aggregate(heading, (current, @group) => current + (@group + Environment.NewLine));
         }
     }
 }
