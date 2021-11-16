@@ -32,6 +32,13 @@ namespace CoffeeMorningAssigner.Models
                     group.Add(queue.Dequeue());
                 }
 
+                // Add the last user to the current group (even if it exceeds max count) 
+                //  to ensure that we don't end up with a user in their own group.
+                if (queue.Count == 1)
+                {
+                    group.Add(queue.Dequeue());
+                }
+
                 Add(group);
             }
         }
