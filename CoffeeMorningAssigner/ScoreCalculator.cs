@@ -73,12 +73,12 @@ namespace CoffeeMorningAssigner
         }
 
 
-        public string ReportPreviousMeetings(WeekAssignment current, AssignmentHistory history)
+        public string ReportPreviousMeetings(WeekAssignment current, AssignmentHistory history, AlgorithmParameters parameters)
         {
             var line = "".PadRight(80, '-');
             var report = new List<string> { "",line, "Previous Meetings Report", line};
 
-            foreach (var recent in history.Weeks.OrderByDescending(w=>w.WeekId))
+            foreach (var recent in history.Weeks.OrderByDescending(w=>w.WeekId).Take(parameters.NumWeeksLookBack))
             {
                 report.AddRange(ReportPreviousMeetings(current, recent));
             }
@@ -101,7 +101,8 @@ namespace CoffeeMorningAssigner
                     {
                         if (ArePairedUpAlready(users[i], users[j], recent))
                         {
-                            report.Add($"\tGroup {group.Id}:  {users[i]} and {users[j]}");
+                            var score = _historicalScore[users[i].Id, users[j].Id];
+                            report.Add($"\tGroup {group.Id}:  {users[i]} and {users[j]}, score: {score}");
                         }
                     }
                 }

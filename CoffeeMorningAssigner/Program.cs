@@ -61,14 +61,15 @@ namespace CoffeeMorningAssigner
             var weekName = "Week " + (history.Weeks.Count + 1);
             var weekAssignment = new WeekAssignment(fittest, weekName);
 
-            LogOutput(calculator, weekAssignment, history);
+            LogOutput(calculator, weekAssignment, history, parameters);
 
             return weekAssignment;
         }
 
-        private static void LogOutput(ScoreCalculator calculator, WeekAssignment weekAssignment, AssignmentHistory history)
+        private static void LogOutput(ScoreCalculator calculator, WeekAssignment weekAssignment,
+            AssignmentHistory history, AlgorithmParameters parameters)
         {
-            var previousMeetingsReport = calculator.ReportPreviousMeetings(weekAssignment, history);
+            var previousMeetingsReport = calculator.ReportPreviousMeetings(weekAssignment, history, parameters);
             Console.WriteLine(previousMeetingsReport);
             File.AppendAllText("PreviousMeetings.log", previousMeetingsReport);
 
