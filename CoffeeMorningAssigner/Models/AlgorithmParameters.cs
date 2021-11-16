@@ -20,7 +20,7 @@
             var p = new AlgorithmParameters
             {
                 NumUsers = numUsers,
-                NumWeeksLookBack = numUsers / AlgorithmParameters.MaxUsersPerGroup + 2,
+                NumWeeksLookBack = numUsers / AlgorithmParameters.MaxUsersPerGroup + 3,
             };
 
             p.MaxPenalty = p.NumWeeksLookBack * 10 + 10;
