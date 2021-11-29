@@ -10,22 +10,33 @@ namespace CoffeeMorningAssigner
     {
         static void Main(string[] args)
         {
-
             // First time running the application - copy the userhistory18.csv to your MyDocuments folder
-            CsvRepository<User>.CopyFileToWorkingFolder("Data\\userHistory18.csv");
+            // CsvRepository<User>.CopyFileToWorkingFolder("Data\\userHistory18.csv");
 
             bool validFileNumber;
+            string input = null;
+
+            if (args.Length > 0)
+            {
+                input = args[0];
+            }
+
             do
             {
-                Console.WriteLine();
-                Console.WriteLine("Enter userHistory file number or any other character to quit.");
-                var input = Console.ReadLine();
+                if (input == null)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Enter userHistory file number or any other character and Enter to quit.");
+                    input = Console.ReadLine();
+                }
 
                 validFileNumber = int.TryParse(input, out var fileId);
                 if (validFileNumber)
                 {
                     RunOnUserHistory(fileId);
                 }
+
+                input = null;
 
             } while (validFileNumber);
         }
