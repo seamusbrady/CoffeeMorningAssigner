@@ -12,6 +12,7 @@ namespace CoffeeMorningAssigner
         {
             // First time running the application - copy the userhistory18.csv to your MyDocuments folder
             // CsvRepository<User>.CopyFileToWorkingFolder("Data\\userHistory18.csv");
+            
 
             bool validFileNumber;
             string input = null;
@@ -28,6 +29,11 @@ namespace CoffeeMorningAssigner
                     Console.WriteLine();
                     Console.WriteLine("Enter userHistory file number or any other character and Enter to quit.");
                     input = Console.ReadLine();
+                }
+
+                if (input == "log")
+                {
+                    PathConfig.ShowRootPath();
                 }
 
                 validFileNumber = int.TryParse(input, out var fileId);
@@ -82,11 +88,15 @@ namespace CoffeeMorningAssigner
         {
             var previousMeetingsReport = calculator.ReportPreviousMeetings(weekAssignment, history, parameters);
             Console.WriteLine(previousMeetingsReport);
-            File.AppendAllText("PreviousMeetings.log", previousMeetingsReport);
+
+            var meetingsLogFilename = Path.Combine(PathConfig.RootFolder(), "PreviousMeetings.log");
+            File.AppendAllText(meetingsLogFilename, previousMeetingsReport);
 
             var assignmentSummary = weekAssignment.ToString();
             Console.WriteLine(assignmentSummary);
-            File.AppendAllText("AssignmentSummary.log", assignmentSummary);
+
+            var summaryLogFilename = Path.Combine(PathConfig.RootFolder(), "AssignmentSummary.log");
+            File.AppendAllText(summaryLogFilename, assignmentSummary);
         }
 
     }

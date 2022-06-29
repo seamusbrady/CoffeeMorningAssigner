@@ -9,12 +9,6 @@ namespace CoffeeMorningAssigner.DAL
 {
     public class CsvRepository<T>
     {
-        /// <summary>
-        /// The root folder (where all the working files are stored) is set to MyDocuments
-        /// Files will be copied and generated into MyDocuments\CoffeeMornings
-        /// </summary>
-        private const Environment.SpecialFolder RootFolder = Environment.SpecialFolder.MyDocuments;
-
         public List<T> Load(string filename)
         {
             var filePath = FilePath(filename);
@@ -38,8 +32,7 @@ namespace CoffeeMorningAssigner.DAL
 
         protected static string FilePath(string filename)
         {
-            var filePath = Environment.GetFolderPath(RootFolder);
-            filePath = Path.Join(filePath, "CoffeeMornings");
+            var filePath = PathConfig.RootFolder();
             filePath = Path.Join(filePath, filename);
             return filePath;
         }
